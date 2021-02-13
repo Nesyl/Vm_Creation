@@ -1,0 +1,61 @@
+---
+- name: Create a VM
+  hosts: all
+
+
+  vars_prompt:
+
+    - name: "172.180.0.3"
+      prompt: "Enter vcenter hostname"
+      private: no
+      default: "172.180.0.3"
+    - name: "vcenter_user"
+      prompt: "Entrer vcenter username"
+      private: no
+      default: "administrator@vsphere.local"
+    - name: "vcenter_pass"
+      prompt: "Enter vcenter password"
+      private: yes
+  vars:
+    datacenter: 'Datacenter'
+    cluster: 'ClusterHA'
+    esxi_host: '172.180.0.5'
+    notes: 'created by ansible'
+    vcenter_hostname: 172.180.0.3
+    vcenter_user: administrator@vsphere.local
+    vcenter_pass: Azerty77!
+    guest_id: Centos7Guest
+    datastore: LUN1
+    network: VM Network
+    memory: 10
+    cpucount: 1
+    osid: Centos7Guest
+
+  tasks:
+  - name: Create a VM
+    vmware_guest:
+      hostname: 172.180.0.3
+      username: administrator@vsphere.local
+      password: 'Azerty77!'
+      validate_certs: no
+      #esxihostname: '172.180.0.5'
+      datacenter: 'Datacenter'
+      cluster: 'ClusterHA'
+      cdrom:
+      - type: iso
+        iso_path: "[LUN1] CentOS-7.iso"
+        controller_number: 1
+        unit_number: 1
+      folder: /
+      name: testvm_3
+      state: present
+    #  template: TemplateLast
+      guest_id: Centos7Guest
+      disk:
+      - size_gb: 1
+        type: thin
+        datastore: LUN1
+      hardware:
+        memory_mb: 512
+        num_cpus: 1
+        scsi: paravirtual
