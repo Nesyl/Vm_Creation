@@ -6,16 +6,17 @@
   vars_prompt:
 
     - name: "172.180.0.3"
-      prompt: "Enter vcenter hostname"
+      #prompt: "Enter vcenter hostname"
       private: no
       default: "172.180.0.3"
     - name: "vcenter_user"
-      prompt: "Entrer vcenter username"
+      #prompt: "Entrer vcenter username"
       private: no
       default: "administrator@vsphere.local"
     - name: "vcenter_pass"
-      prompt: "Enter vcenter password"
+      #prompt: "Enter vcenter password"
       private: yes
+      default: "Azerty77!"
   vars:
     datacenter: 'Datacenter'
     cluster: 'ClusterHA'
